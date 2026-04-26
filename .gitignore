@@ -1,0 +1,6 @@
+dataset/
+outputs/
+data/raw_videos/
+__pycache__/
+*.pyc
+.DS_Store
