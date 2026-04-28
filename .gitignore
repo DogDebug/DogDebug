@@ -1,6 +1,22 @@
-dataset/
-outputs/
+# 1. 视频和图片数据集 (绝对不能传)
 data/raw_videos/
+data/frames/
+data/augmented/
+dataset/
+
+# 2. 模型训练输出和权重文件
+outputs/
+runs/
+*.pt
+*.pth
+*.weights
+
+# 3. Python 缓存文件
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# 4. 编辑器和系统生成文件
+.vscode/
+.idea/
 .DS_Store
