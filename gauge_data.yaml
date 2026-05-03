@@ -1,8 +1,0 @@
-# 数据集路径 (如果你们在同一个局域网且使用绝对路径，也可以改写为你这边的绝对路径，通常用相对路径更方便)
-path: ../dataset  # 表示从训练脚本所在的目录找 dataset 文件夹
-train: train/images  # 训练集图片路径 (相对于 path)
-val: val/images      # 验证集图片路径 (相对于 path)
-
-# 类别信息
-names:
-  0: gauge  # 我们打标签时统一定义的类别和ID

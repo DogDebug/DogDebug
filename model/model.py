@@ -9,9 +9,9 @@ from tqdm import tqdm
 from PIL import Image
 
 # ------------------------- 全局配置 -------------------------
-DATA_DIR = 'data'
+DATA_DIR = 'cls_dataset'
 BATCH_SIZE = 32
-EPOCHS = 20
+EPOCHS = 45
 LEARNING_RATE = 1e-4
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_SAVE_PATH = 'meter_classifier.pth'
@@ -24,11 +24,27 @@ NUM_CLASSES = len(CLASS_NAMES)
 # ------------------------- 数据预处理 -------------------------
 def get_train_transforms():
     return transforms.Compose([
-        transforms.Resize((224, 224)),
-        # 注意：去掉了 RandomHorizontalFlip，避免左右颠倒导致标签错乱
-        transforms.RandomRotation(15),
-        transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        # 1. 给它看极端的透视变形！模拟靠近镜头的畸变和歪斜狗眼视角
+        transforms.RandomPerspective(distortion_scale=0.4, p=0.7),
+        
+        # 2. 从 0.5 到 1.0 的超大范围随机裁剪再拉伸，强行打破距离依赖，
+        # 让网络见过超大和超小的局部指针。
+        transforms.RandomResizedCrop(224, scale=(0.5, 1.0), ratio=(0.8, 1.2)),
+        
+        # 3. 微微的自适应摇摆，防纸片歪斜
+        transforms.RandomRotation(7),
+        
+        # 4. 暴力模拟反光与糊图
+        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.3, hue=0.1),
+        transforms.GaussianBlur(kernel_size=(5, 9), sigma=(0.1, 5)),
+        
         transforms.ToTensor(),
+        
+        # 5. 随机擦除 (Random Erasing)！
+        # 这个极其关键：它会在图片上随机打一块马赛克块（比如把刻度或者表盘边缘遮掉）
+        # 强迫模型必须依靠【指针的整体走向】来判断，而不是死记硬背外圈的一块特定像素。
+        transforms.RandomErasing(p=0.5, scale=(0.02, 0.15), ratio=(0.3, 3.3)),
+        
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 

@@ -1,8 +1,10 @@
 # 1. 视频和图片数据集 (绝对不能传)
 data/raw_videos/
 data/frames/
-data/augmented/
-dataset/
+data/train
+data/val
+yolo_dataset/
+
 
 # 2. 模型训练输出和权重文件
 outputs/
@@ -20,3 +22,5 @@ __pycache__/
 .vscode/
 .idea/
 .DS_Store
+
+yolov5/

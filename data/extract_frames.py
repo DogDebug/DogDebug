@@ -6,7 +6,7 @@ import cv2
 import argparse
 from pathlib import Path
 
-def extract(video: str, out_dir: str, interval: float = 0.3) -> None:
+def extract(video: str, out_dir: str, interval: float = 0.1) -> None:
     cap = cv2.VideoCapture(video)
     if not cap.isOpened():
         raise IOError(f"无法打开视频: {video}")
