@@ -4,9 +4,8 @@ import numpy as np
 import time
 
 def test_pt_file():
-    # 替换为你刚才关闭翻转、重新训练后的最新权重路径！(比如 exp7 或 exp8)
     # --------- ⚠️ 请务必检查这里是不是最新的权重 ⚠️ ---------
-    yolo_weight = "yolov5/runs/train/exp11/weights/best.pt" 
+    yolo_weight = "yolov5/runs/train/exp10/weights/best.pt" 
     
     print(f"1. 正在加载本地权重：{yolo_weight}")
     yolo_model = torch.hub.load('yolov5', 'custom', path=yolo_weight, source='local')

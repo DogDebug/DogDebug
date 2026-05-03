@@ -44,8 +44,9 @@ def get_train_transforms():
         # 这个极其关键：它会在图片上随机打一块马赛克块（比如把刻度或者表盘边缘遮掉）
         # 强迫模型必须依靠【指针的整体走向】来判断，而不是死记硬背外圈的一块特定像素。
         transforms.RandomErasing(p=0.5, scale=(0.02, 0.15), ratio=(0.3, 3.3)),
-        
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+        transforms.RandomAffine(degrees=0, translate=(0.1, 0.1), scale=(0.8, 1.2)),  # 模拟平移+缩放
+        transforms.RandomPerspective(distortion_scale=0.5, p=0.5),  # 原来已有，可以加大 distortion_scale
     ])
 
 def get_val_transforms():
