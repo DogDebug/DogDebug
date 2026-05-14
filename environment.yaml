@@ -1,0 +1,21 @@
+name: dial_rc
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  
+  # --- 🌟 标注工具 (交给 Conda 安装，自动搞定所有底层图形界面的 C++ 依赖，跨平台 100% 成功) ---
+  - labelme
+  
+  - pip:
+    # --- 核心视觉与深度学习框架 ---
+    - ultralytics>=8.0.0       
+    - opencv-python>=4.8.0     
+    - numpy==1.26.4            
+    
+    # --- 算法辅助与数据处理 ---
+    - scipy
+    - pandas
+    - matplotlib
