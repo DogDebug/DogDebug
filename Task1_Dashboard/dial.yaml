@@ -1,0 +1,10 @@
+# dial.yaml
+path: ../dial_dataset  # 数据集的相对路径 (根据你的截图，dial_dataset 在项目根目录)
+train: images/train
+val: images/val
+
+# 类别字典
+names:
+  0: Low
+  1: Normal
+  2: High
