@@ -9,7 +9,7 @@ from collections import Counter, deque
 MODEL_PATH = 'runs/detect/train/weights/best.pt' 
 CAMERA_SOURCE = 0 # 手机USB地址，或填 0
 
-# --- 🚀 核心防抖与输出配置区 ---
+# ---  核心防抖与输出配置区 ---
 BUFFER_SIZE = 15     # 滑动窗口：记忆最近 15 帧的结果 (加大记忆容量，彻底吃掉偶尔的错误帧)
 PRINT_INTERVAL = 10  # 输出频率：每 10 帧才输出一次 (让终端输出更加从容、沉稳)
 

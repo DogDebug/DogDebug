@@ -1,0 +1,47 @@
+# 在 /opt 目录下安装官方包
+sudo apt-get update
+sudo apt-get install ros-noetic-ros-tutorials -y
+
+# 创建工作空间 A，新建同名功能包
+mkdir -p ~/ws_a/src
+cd ~/ws_a/src
+# 用命令创建一个名为 ros_tutorials 的功能包
+catkin_create_pkg ros_tutorials std_msgs rospy roscpp
+cd ~/ws_a
+catkin_make
+
+# 创建工作空间 B，并“源码下载”同名功能包
+mkdir -p ~/ws_b/src
+cd ~/ws_b/src
+cd ~/ws_b
+catkin_make
+
+# 开始录屏
+
+# 要求1：查看创建的工作空间及里面的功能包
+ls ~/ws_a/src
+# 终端输出：屏幕显示 CMakeLists.txt ros_tutorials
+ls ~/ws_b/src
+# 终端输出：CMakeLists.txt ros_tutorials
+
+# 要求2：演示 roscd ros_tutorials 部分
+# 进入 工作空间 A
+source ~/ws_a/devel/setup.bash
+roscd ros_tutorials
+pwd
+
+# 被工作空间 B 覆盖
+source ~/ws_b/devel/setup.bash
+roscd ros_tutorials
+pwd
+
+# 终端输出：/home/noetic/ws_b/src/ros_tutorials ，B 成功覆盖了 A
+
+# 要求3：退回 /opt 系统路径
+source /opt/ros/noetic/setup.bash
+roscd ros_tutorials
+pwd
+
+# 终端输出：/opt/ros/noetic/share/ros_tutorials
+
+# 结束录屏

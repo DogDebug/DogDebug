@@ -1,0 +1,22 @@
+# 终端1
+roscore
+
+# 终端2
+rosrun turtlesim turtlesim_node
+
+# 终端3，控制小乌龟
+rosrun turtlesim turtle_teleop_key
+
+# 终端4，方便录制
+cd ~/Desktop
+# 开启 ros 录像
+rosbag record -O run.bag /turtle1/cmd_vel
+
+# 切换到终端3，控制小乌龟
+# 切换到终端4，Ctrl + C ，结束录制
+
+# 终端4，清空画板
+rosservice call /reset
+
+# 终端4，播放录像文件
+rosbag play run.bag
